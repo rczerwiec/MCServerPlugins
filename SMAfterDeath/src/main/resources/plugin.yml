@@ -1,0 +1,5 @@
+name: AfterDeath
+version: ${project.version}
+main: sm.afterdeath.AfterDeath
+api-version: 1.13
+authors: [czerwcuu]

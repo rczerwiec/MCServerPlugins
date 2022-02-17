@@ -1,0 +1,5 @@
+name: AfterDeath
+version: 1.0-SNAPSHOT
+main: sm.afterdeath.AfterDeath
+api-version: 1.13
+authors: [czerwcuu]
