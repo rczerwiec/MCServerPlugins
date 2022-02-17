@@ -1,0 +1,5 @@
+name: SMMobs
+version: ${project.version}
+main: pl.stylowamc.SMMobs
+api-version: 1.16
+authors: [czerwcuu]

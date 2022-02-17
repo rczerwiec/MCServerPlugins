@@ -1,0 +1,9 @@
+name: SMCoin
+version: ${project.version}
+main: com.stylowamc.smcoin.SMCoin
+api-version: 1.16
+commands:
+  smc:
+    description: Coins plugin for StylowaMC
+    usage: /smc [wyplac|info]
+    aliases: [coiny, monety, smcoin, smcoiny, smcoins, smd]

@@ -1,0 +1,176 @@
+'0':
+  name: §4Rubinowy Hełm
+  lore:
+    - Prestiżowy hełm, wykonany z rubinów
+    - DODAJE 2HP
+  health: 4
+  armor: 3
+  item1: NETHERITE_HELMET
+  item2: rubin
+  out: DIAMOND_HELMET
+  placeholder: HEAD
+'1':
+  name: §4Rubinowe Buty
+  lore:
+    - Lśniące buty, wykonany z rubinów
+    - DODAJĄ 1HP
+  health: 2
+  armor: 3
+  item1: NETHERITE_BOOTS
+  item2: rubin
+  out: DIAMOND_BOOTS
+  placeholder: FEET
+'2':
+  name: §4Rubinowa Zbroja
+  lore:
+    - Przepiękna zbroja, wykonana z rubinów
+    - DODAJE 4HP
+  health: 8
+  armor: 8
+  item1: NETHERITE_CHESTPLATE
+  item2: rubin
+  out: DIAMOND_CHESTPLATE
+  placeholder: CHEST
+'3':
+  name: §4Rubinowe Spodnie
+  lore:
+    - Wygodne spodnie, wykonane z rubinów
+    - DODAJĄ 3HP
+  health: 6
+  armor: 6
+  item1: NETHERITE_LEGGINGS
+  item2: rubin
+  out: DIAMOND_LEGGINGS
+  placeholder: LEGS
+'4':
+  name: §6Meteorytowy Hełm
+  lore:
+    - Prawawny hełm z kosmosu
+    - DODAJE 4HP
+  health: 8
+  armor: 3
+  item1: NETHERITE_HELMET
+  item2: meteor
+  out: DIAMOND_HELMET
+  placeholder: HEAD
+'5':
+  name: §6Meteorytowe Buty
+  lore:
+    - Buty z kosmosu
+    - DODAJĄ 2HP
+  health: 4
+  armor: 3
+  item1: NETHERITE_BOOTS
+  item2: meteor
+  out: DIAMOND_BOOTS
+  placeholder: FEET
+'6':
+  name: §4Meteorytowa Zbroja
+  lore:
+    - Zbroja z kosmosu
+    - DODAJE 8HP
+  health: 16
+  armor: 8
+  item1: NETHERITE_CHESTPLATE
+  item2: meteor
+  out: DIAMOND_CHESTPLATE
+  placeholder: CHEST
+'7':
+  name: §4Meteorytowe Spodnie
+  lore:
+    - Spodnie z kosmosu
+    - DODAJĄ 6HP
+  health: 12
+  armor: 6
+  item1: NETHERITE_LEGGINGS
+  item2: meteor
+  out: DIAMOND_LEGGINGS
+  placeholder: LEGS
+'8':
+  name: §7Platynowyy Hełm
+  lore:
+    - Niemal niezniszczalny hełm
+    - DODAJE 6HP
+  health: 12
+  armor: 3
+  item1: NETHERITE_HELMET
+  item2: platyna
+  out: DIAMOND_HELMET
+  placeholder: HEAD
+'9':
+  name: §7Platynowe Buty
+  lore:
+    - Niewygodne, ale jakie wytrzymałe!
+    - DODAJĄ 3HP
+  health: 6
+  armor: 3
+  item1: NETHERITE_BOOTS
+  item2: platyna
+  out: DIAMOND_BOOTS
+  placeholder: FEET
+'10':
+  name: §7Platynowa Zbroja
+  lore:
+    - Napierśnik sprawia że jesteś nieśmiertelny
+    - DODAJE 12HP
+  health: 24
+  armor: 8
+  item1: NETHERITE_CHESTPLATE
+  item2: platyna
+  out: DIAMOND_CHESTPLATE
+  placeholder: CHEST
+'11':
+  name: §7Platynowe Spodnie
+  lore:
+    - Niewygodne, ale uchronią Twoje...
+    - DODAJĄ 9HP
+  health: 18
+  armor: 6
+  item1: NETHERITE_LEGGINGS
+  item2: platyna
+  out: DIAMOND_LEGGINGS
+  placeholder: LEGS
+'12':
+  name: §0Bedrockowy Hełm
+  lore:
+    - Mrok opanuje Twój umysł
+    - DODAJE 8HP
+  health: 16
+  armor: 3
+  item1: NETHERITE_HELMET
+  item2: bedrock
+  out: DIAMOND_HELMET
+  placeholder: HEAD
+'13':
+  name: §0Bedrockowe Buty
+  lore:
+    - Sprawiają że czujesz się źle!
+    - DODAJĄ 4HP
+  health: 8
+  armor: 3
+  item1: NETHERITE_BOOTS
+  item2: bedrock
+  out: DIAMOND_BOOTS
+  placeholder: FEET
+'14':
+  name: §0Bedrockowa Zbroja
+  lore:
+    - Niczym czarny rycerz!
+    - DODAJE 16HP
+  health: 32
+  armor: 8
+  item1: NETHERITE_CHESTPLATE
+  item2: bedrock
+  out: DIAMOND_CHESTPLATE
+  placeholder: CHEST
+'15':
+  name: §0Bedrockowe Spodnie
+  lore:
+    - W czerni Ci do twarzy!
+    - DODAJĄ 12HP
+  health: 24
+  armor: 6
+  item1: NETHERITE_LEGGINGS
+  item2: bedrock
+  out: DIAMOND_LEGGINGS
+  placeholder: LEGS

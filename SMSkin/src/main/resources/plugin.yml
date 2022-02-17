@@ -1,0 +1,7 @@
+name: SMSkins
+version: ${project.version}
+main: com.stylowamc.smskins.SMSkins
+api-version: 1.17
+commands:
+  skiny:
+    description: Test

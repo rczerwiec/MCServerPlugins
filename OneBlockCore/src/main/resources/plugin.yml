@@ -1,0 +1,7 @@
+name: OneBlockCore
+version: '${project.version}'
+main: com.stylowamc.obc.OBC
+api-version: 1.18
+commands:
+  obc:
+    description: Glowna komenda obc

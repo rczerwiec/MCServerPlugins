@@ -1,0 +1,4 @@
+name: SMItems
+version: ${project.version}
+main: smitems.SMItems
+api-version: 1.13

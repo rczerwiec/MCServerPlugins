@@ -1,0 +1,8 @@
+DB_login:
+DB_db:
+DB_password:
+DB_ip:
+DB_port: 3306
+
+SMC_material: SUNFLOWER
+server: #ob2 ob3 md cb1

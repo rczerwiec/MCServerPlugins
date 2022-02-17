@@ -1,0 +1,28 @@
+'0':
+  look: -91
+  currentplayer: 0
+  maxplayers: 2
+  location:
+    - -105.102.137
+    - -45.102.135
+'1':
+  look: -91
+  currentplayer: 0
+  maxplayers: 2
+  location:
+    - 5.102.135
+    - 63.102.135
+'2':
+  look: -91
+  currentplayer: 0
+  maxplayers: 2
+  location:
+    - 4.102.219
+    - 63.102.217
+'3':
+  look: -91
+  currentplayer: 0
+  maxplayers: 2
+  location:
+    - -106.102.217
+    - -46.102.217

@@ -1,0 +1,29 @@
+#ONEBLOCK
+o_wyspa: '&aAby dodać gracza na swoją wyspę należy wpisać &e/ob team invite [nick]&a, następnie zaproszona osoba powinna potwierdzić zaproszenie wpisując 2 razy &e/ob team accept&e.'
+o_chromite: '&aChromite/chromium chunk jest to bezużyteczny item'
+o_zaufany: '&aRangę &6zaufanego&a lub &3pomocnika&a nadaje się komendami &6/ob team trust [nick] &a oraz &3/ob team coop [nick]&a, permisje dla rang mozesz dostosować pod &e/ob settings'
+o_lvl: '&aLvl wyspy zwiększa się wraz z postawionym na niej blokami, wartość punktową trzymanego bloku możesz poznać wpisując &e/ob value'
+o_zarabianie: '&aAby zarobić należy wykonywać zadania &e/quest&a, sprzedawać itemy &e/warp sklep&a lub poprzez aukcje &e/ah &a(&e/ah sell cena&a)'
+o_powieksz: '&aDo powiększenia wyspy wymagany jest min. &e2 lvl&a oraz &e1000$&a, mozesz zrobić to poprzez komendę &e/ob upgrade'
+o_nowy: '&aDla nowych gracz polecam bardzo komendy /ob team help i /ob help znajdziecie tam najważniejsze informacje'
+o_faza: '&aNowe bloki z oneblocka będą wam wypadały gdy wykopiecie daną ilość bloków pod komendą /ob phases macie różne fazy od fazy podziemia lecą diamenty swoje wykopane bloki pod komendą /ob count'
+o_pvp: '&aAby włączyć PVP na wyspie należy wpisać &6(/ob settings) &a, nacisnąć na &6Ustawienia (Komparator) &a i na końcu &6Strzałkę&a.'
+o_warp: '&aAby stworzyć swój warp wystarczy zrobić tabliczkę z napisem [Welcome].'
+
+#SURVIVAL
+s_home: '&aAby tepnąć się do swojej działki trzeba ustawić na niej &6/sethome (nazwa). &aJeżeli nie ustawiłeś home musisz pójść na działkę przez kordy używając komendy &6/claimlist.'
+s_dzialka: '&aDziałkę stworzyć można biorąc złotą łopatę z &6/kit start &ai zaznaczając przeciwległe rogi działki którą chcemy stworzyć'
+s_sklep: '&aAby stworzyć sklep wystarczy wpisać komendę &6/qs create <cena>. &aPodczas jej wpisywania trzeba patrzeć na skrzynkę w której sklep ma się znajdować i trzymać przedmiot który się chce sprzedać w ręku.'
+s_bloki: '&aNowe bloki do działki będą wam się dodawały podczas grania na serwerze (1h=50 bloków). &6Rangi premium &a(vip, svip etc.) również dodają bloki do tworzenia działki.'
+s_pvp: '&aArena do pvp znajduje się pod komendą &6/warp arena'
+s_end: '&aKeep Inventory w endzie jest &4wyłączone!'
+s_tpr: '&aAby przeteleportować się w randomowe miejsce na mapie wystarczy użyć komendy &6/tpr'
+s_zarabianie: '&aZarabiać można poprzez sprzedawanie rzeczy u &4Handlarza Macieja &ana &6/warp sklep &aalbo tworząc własne sklepy i sprzedawać rzeczy graczom.'
+
+#UNIWERSALNE
+p_stream: '&aHej'
+p_event: '&aZapraszam na event!!! Aby dołączyć wystarczy wpisać &6/spawn &i kliknąć prawym przyciskiem myszy na NPC &6EVENTY'
+p_sprawdzanie: '&c!!JESTEŚ SPRAWDZANY!! &7Czy przyznajesz się do używania &ccheatów? &7TAK/NIE na odpowiedź masz 2 minuty!'
+p_itemshop: '&aWszystkie dodatki do gry takie jak &eVIPy, &2SVIPy, &1MVIPy, &eE&9V&4I&dPy, &0X&9V&3I&bPy &aczy &6SMCoiny &amożna zakupić na stronie internetowej &4stylowamc.pl.'
+
+noperms: '&4&lNie masz do tego permisji'

@@ -1,0 +1,6 @@
+name: BanknotySM
+version: ${project.version}
+main: banknotysm.BanknotySM
+commands:
+  banknoty:
+    description: Banknoty Test

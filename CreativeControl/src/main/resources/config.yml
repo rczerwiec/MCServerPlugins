@@ -1,0 +1,4 @@
+witherskeleton_killed: " killed the Wither Skeleton "
+check_killedSkeletons: true;
+# If you want to check your builders, just give them "creativecontrol.isbuilder" permission
+check_builders: true;

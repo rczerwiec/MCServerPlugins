@@ -1,0 +1,72 @@
+0:
+  name: 'PALADYN 1v1'
+  kit: 'paladyn'
+  look: 180
+  location:
+    - 151.100.-531
+    - 151.100.-531
+  maxplayers: 2
+1:
+  name: 'SZLACHCIC 1v1'
+  kit: 'szlachcic'
+  look: 180
+  location:
+    - 151.100.-395
+    - 151.100.-395
+  maxplayers: 2
+2:
+  name: 'LITWIN 1v1'
+  kit: 'litwin'
+  look: 180
+  location:
+    - 238.100.-395
+    - 238.100.-395
+  maxplayers: 2
+3:
+  name: 'EGZOR 1v1'
+  kit: 'egzorcysta'
+  look: 180
+  location:
+    - 238.100.-466
+    - 238.100.-466
+  maxplayers: 2
+4:
+  name: 'SAMURAJ 1v1'
+  kit: 'samuraj'
+  look: 180
+  location:
+    - 339.100.-395
+    - 339.100.-395
+  maxplayers: 2
+5:
+  name: 'DRWAL 1v1'
+  kit: 'drwal'
+  look: 180
+  location:
+    - 339.100.-466
+    - 339.100.-466
+  maxplayers: 2
+6:
+  name: 'BESTIA 1v1'
+  kit: 'bestia'
+  look: 180
+  location:
+    - 339.100.-531
+    - 339.100.-531
+  maxplayers: 2
+7:
+  name: 'WOJOWNIK 1v1'
+  kit: 'wojownik'
+  look: 180
+  location:
+    - 424.100.-395
+    - 424.100.-395
+  maxplayers: 2
+8:
+  name: 'ŁOWCA 1v1'
+  kit: 'lowca'
+  look: 180
+  location:
+    - 151.100.-395
+    - 151.100.-395
+  maxplayers: 2

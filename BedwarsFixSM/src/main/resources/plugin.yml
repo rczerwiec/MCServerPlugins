@@ -1,0 +1,5 @@
+name: BedwarsFixSM
+version: ${project.version}
+main: pl.stylowamc.bedwarsfixsm.BedwarsFixSM
+authors: [ Stylowy ]
+description: Bedwars fix

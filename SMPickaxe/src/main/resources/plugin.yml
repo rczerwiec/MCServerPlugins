@@ -1,0 +1,8 @@
+name: SMPickaxe
+version: ${project.version}
+main: pl.smpickaxe.Smpickaxe
+api-version: 1.18
+authors: [czerwcuu]
+commands:
+  smpickaxe:
+    description: Customowe kilofy SM (dla Administracji)

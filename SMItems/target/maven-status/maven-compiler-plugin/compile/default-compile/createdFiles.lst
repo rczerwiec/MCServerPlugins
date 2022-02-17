@@ -1,0 +1,6 @@
+smitems\SMItems.class
+smitems\util\BeaconCraftingUtil.class
+smitems\perms\Perms.class
+smitems\util\SlimeChunkCheckerUtil.class
+smitems\events\BlockWrittenBookCraftingEvent.class
+smitems\events\SlimeChunkCheckerEvent.class

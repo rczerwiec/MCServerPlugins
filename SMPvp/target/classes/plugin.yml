@@ -1,0 +1,21 @@
+name: SMPvp
+version: 1.3.5
+main: smpvp.smpvp.SMPvp
+api-version: 1.16
+authors: [czerwcuu, koloksk]
+website: stylowamc.pl
+commands:
+  pvp:
+    description: Zarządzanie customowymi arenami
+  kit:
+    description: Utwórz swój własny kit
+  mojekity:
+    description: Sprawdź swoje kity
+  pojedynek:
+    description: Zawalcz z innym graczem!
+  smpvp:
+    description: Zarządzanie arenami
+  adminkit:
+    description: Tworzenie kitu Administratora
+  adminkitlist:
+    description: Lista kitów Administratora/Edycja

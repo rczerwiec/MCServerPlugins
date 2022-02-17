@@ -1,0 +1,49 @@
+name: AdriinPomocy
+version: ${project.version}
+main: pl.stylowamc.adriinpomocy.AdriinPomocy
+commands:
+  o_wyspa:
+    description: Jak dodac kogos do wyspy (usuwa wyspe zaproszonego)
+  o_lvl:
+    description: Jak zwiekszyc level wyspy
+  o_powieksz:
+    description: Jak powiekszyc wyspe
+  o_chromite:
+    description: Co to jest chromimum chunk
+  o_zarabianie:
+    description: Jak zarabiac hajs
+  o_zaufany:
+    description: Jak dodac zaufana osobe do wyspy
+  o_nowy:
+    description: Dla nowych graczy /ob help
+  o_faza:
+    description: Fazy na oneblocku
+  o_pvp:
+    description: Jak włączyć pvp na wyspie
+  o_warp:
+    description: Jak stworzyc warp
+  s_home:
+    description: Jak wrocic do swojej dzialki
+  s_dzialka:
+    description: Jak stworzyc dzialke
+  s_sklep:
+    description: Jak stworzyc sklep
+  s_bloki:
+    description: Jak zdobyc bloki do dzialki
+  s_pvp:
+    description: Arena do pvp znajduje sie pod /warp arena
+  s_end:
+    description: keep inventory w endzie - wylaczone
+  p_event:
+    description: Zaproszanie na event
+  p_sprawdzanie:
+    description: Wolanie na sprawdzanie
+  p_itemshop:
+    description: Gdzie mozna zakupic rangi
+  p_stream:
+    description: Stream u Stylowego
+  s_tpr:
+    description: Jak uzyc rtp
+  s_zarabianie:
+    description: Jak zarabiac na survivalu
+

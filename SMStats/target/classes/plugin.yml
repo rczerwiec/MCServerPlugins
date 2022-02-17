@@ -1,0 +1,7 @@
+name: SMStats
+version: 1.0.1
+main: pl.stylowamc.Stylowamc
+api-version: 1.13
+commands:
+  statystyki:
+    description: Sprawdź swoje statystyki na serwerze!
