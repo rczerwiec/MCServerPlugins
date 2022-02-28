@@ -2,6 +2,7 @@ package com.stylowamc.smcoin.Commands;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,16 +28,9 @@ public class AddCoinsCMD implements CommandExecutor {
     private static FileConfiguration config;
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        ItemStack coin = new ItemStack((Material)Objects.requireNonNull(Material.getMaterial((String)Objects.requireNonNull(SMCoin.getConfigIstance().getString("SMC_material")))));
-        ItemMeta meta = coin.getItemMeta();
-        config = plugin.getConfig();
-        List<String> lore = new ArrayList();
-        lore.add(ChatColor.GRAY + "Oficjalna waluta " + ChatColor.YELLOW + "SM");
-        lore.add(ChatColor.GRAY + "Ten" + ChatColor.GOLD + " Coin " + ChatColor.GRAY + "jest wart " + ChatColor.RED + "1zł");
-        meta.setLore(lore);
-        meta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "SM" + ChatColor.GOLD + "Coin");
-        coin.addUnsafeEnchantment(Enchantment.LUCK, 1);
-        coin.setItemMeta(meta);
+        ItemStack coin = createCoin();
+        ArrayList<Integer> serverWithCoins = new ArrayList<>();
+
         if (args.length < 1) {
             if (sender instanceof Player) {
                 sender.sendMessage("Poprawne użycia:");
@@ -47,26 +42,29 @@ public class AddCoinsCMD implements CommandExecutor {
                 Bukkit.getLogger().info("/smc info");
                 Bukkit.getLogger().info("/smc info <nick>");
             }
-        } else {
+        }
+        else{
             Player p;
             String playerName;
             PreparedStatement stat;
+
             int coinsValue;
             PaymentsLogToFile log;
             if (args[0].equals("dodaj")) {
                 if (args.length <= 2) {
                     if (sender instanceof Player) {
                         p = (Player)sender;
-                        p.sendMessage("Wprowadz wszystkie dane /smc dodaj <nick> <ilosc>");
+                        p.sendMessage("Ta komenda może zostać wykonana wyłącznie przez operatora serwera");
                     } else {
-                        Bukkit.getLogger().info("Wprowadz wszystkie dane /smc dodaj <nick> <ilosc>");
+                        Bukkit.getLogger().info("Ta komenda może zostać wykonana wyłącznie przez operatora serwera");
                     }
-                } else if (!(sender instanceof Player)) {
-                    coinsValue = Integer.parseInt(args[2]);
-                    playerName = args[1];
-
+                }
+                else if (!(sender instanceof Player)) {
+                    coinsValue = Integer.parseInt(args[1]);
+                    playerName = args[2];
                     try {
-                        if (this.IsInDb(playerName)) {
+                        //Jeżeli jest juz w bazie danych
+                        if (this.isInDatabase(playerName)) {
                             stat = SMCoin.connection.prepareStatement("UPDATE coins SET Coins=Coins+?,CoinsSum=CoinsSum+? WHERE Name = ?");
                             stat.setInt(1, coinsValue);
                             stat.setInt(2, coinsValue);
@@ -75,16 +73,11 @@ public class AddCoinsCMD implements CommandExecutor {
                             log = new PaymentsLogToFile();
                             log.logToFile(playerName + " doładował coinsy w ilości:" + coinsValue);
                             Bukkit.getLogger().info(playerName + " doładował coinsy w ilości:" + coinsValue);
-                            this.UpdateGlobalStats(coinsValue);
 
-                            try {
-                                if (((Player)Objects.requireNonNull(Bukkit.getPlayerExact(playerName))).isOnline()) {
-                                    Bukkit.getPlayerExact(playerName).sendMessage("Doładowałeś coinsy w ilości:" + coinsValue);
-                                }
-                            } catch (NullPointerException var17) {
-                                Bukkit.getLogger().info("Gracza aktualnie nie ma na serwerze");
-                            }
-                        } else {
+                        }
+                        //Jeżeli gracz zakupił po raz pierwszy SMCoiny
+                        else
+                        {
                             stat = SMCoin.connection.prepareStatement("INSERT INTO coins(Name,Coins,CoinsSum) VALUES (?,?,?)");
                             stat.setString(1, playerName);
                             stat.setInt(2, coinsValue);
@@ -94,23 +87,18 @@ public class AddCoinsCMD implements CommandExecutor {
                             log = new PaymentsLogToFile();
                             log.logToFile(playerName + " doładował po raz pierwszy coinsy w ilości:" + coinsValue);
                             Bukkit.getLogger().info(playerName + " doładował po raz pierwszy coinsy w ilości:" + coinsValue);
-                            this.UpdateGlobalStats(coinsValue);
 
-                            try {
-                                if (((Player)Objects.requireNonNull(Bukkit.getPlayerExact(playerName))).isOnline()) {
-                                    Bukkit.getPlayerExact(playerName).sendMessage("Doładowałeś coinsy w ilości:" + coinsValue);
-                                }
-                            } catch (NullPointerException var16) {
-                                Bukkit.getLogger().info("Gracza aktualnie nie ma na serwerze");
-                            }
                         }
-                    } catch (SQLException var18) {
-                        var18.printStackTrace();
+                        this.UpdateGlobalStats(coinsValue);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                } else {
-                    sender.sendMessage("Musisz wykonać tą komendę z konsoli!");
                 }
-            } else if (args[0].equals("wyplac") && sender instanceof Player) {
+                else {
+                    sender.sendMessage("Ta komenda może zostać wywołana jedynie z konsoli!");
+                }
+            }
+            else if (args[0].equals("wyplac") && sender instanceof Player) {
                 p = (Player)sender;
                 coinsValue = 0;
 
@@ -118,114 +106,73 @@ public class AddCoinsCMD implements CommandExecutor {
                     stat = SMCoin.connection.prepareStatement("SELECT Coins FROM coins WHERE Name = ?");
                     stat.setString(1, p.getName());
 
+                    //Do sprawdzenia
                     for(ResultSet result = stat.executeQuery(); result.next(); coinsValue = result.getInt("Coins")) {
                     }
 
                     if (coinsValue >= Integer.parseInt(args[1]) && Integer.parseInt(args[1]) > 0) {
                         check(p, coin, Integer.parseInt(args[1]));
                     } else {
-                        p.sendMessage("Nie masz wystarczająco coinów!");
+                        if (Integer.parseInt(args[1]) == 0)  p.sendMessage("Wartość musi być większa niż 0!");
+                        else p.sendMessage("Nie masz wystarczająco coinsów!");
                     }
-                } catch (SQLException var21) {
-                    var21.printStackTrace();
+                    log = new PaymentsLogToFile();
+                    log.logToFile(p.getName() + " wypłacił coinsy w ilości:" + args[1]);
+                    Bukkit.getLogger().info(p.getName() + " wypłacił coinsy w ilości:" + args[1]);
+                } catch (SQLException | CommandException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    p.sendMessage("Podaj prawidłowe wartości!");
                 }
-
-                log = new PaymentsLogToFile();
-                log.logToFile(p.getName() + " wypłacił coinsy w ilości:" + args[1]);
-                Bukkit.getLogger().info(p.getName() + " wypłacił coinsy w ilości:" + args[1]);
-            } else if (args[0].equals("info")) {
-                int coinsSum;
-                int ob3,ob2,cb1,md;
+            }
+            else if (args[0].equals("info")) {
+                //smc info Stylowy
                 if (args.length >= 2) {
-                    if (this.IsInDb(args[1])) {
-                        String name = args[1];
-                        coinsValue = 0;
-                        coinsSum = 0;
-                        ob3 = 0;
-                        ob2 = 0;
-                        cb1 = 0;
-                        md = 0;
-
-                        try {
-                            stat = SMCoin.connection.prepareStatement("SELECT Coins, CoinsSum, ob3, ob2, md, cb1 FROM coins WHERE Name = ?");
-                            stat.setString(1, name);
-
-                            for(ResultSet result = stat.executeQuery(); result.next(); coinsSum = result.getInt("CoinsSum")) {
-                                coinsValue = result.getInt("Coins");
-                                ob3 = result.getInt("ob3");
-                                ob2  = result.getInt("ob2");
-                                md = result.getInt("md");
-                                cb1 = result.getInt("cb1");
-                            }
-
-                            if (sender instanceof Player) {
-                                sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "SMCoins");
-                                sender.sendMessage("●" + name + " posiada " + ChatColor.AQUA + coinsValue + ChatColor.WHITE + " SMCoinsów●");
-                                sender.sendMessage("●Razem zakupił już " + ChatColor.AQUA + coinsSum + ChatColor.WHITE +" SMCoinsów●");
-                                sender.sendMessage("●Coiny wydane na OneBlock S2 "+ ChatColor.AQUA + ob2);
-                                sender.sendMessage("●Coiny wydane na OneBlock S3 " + ChatColor.AQUA + ob3);
-                                sender.sendMessage("●Coiny wydane na CaveBlocku " + ChatColor.AQUA + cb1);
-                                sender.sendMessage("●Coiny wydane na MegaDropie " + ChatColor.AQUA + md);
-                            } else {
-                                Bukkit.getLogger().info(ChatColor.RED + "" + ChatColor.BOLD + "SMCoins");
-                                Bukkit.getLogger().info("●" + name + " posiada " + ChatColor.AQUA + coinsValue + ChatColor.WHITE + " SMCoinsów●");
-                                Bukkit.getLogger().info("●Razem zakupił już " + ChatColor.AQUA + coinsSum + ChatColor.WHITE + " SMCoinsów●");
-                                Bukkit.getLogger().info("●Coiny wydane na OneBlock S2 " + ChatColor.AQUA + ob2);
-                                Bukkit.getLogger().info("●Coiny wydane na OneBlock S3 " + ChatColor.AQUA + ob3);
-                                Bukkit.getLogger().info("●Coiny wydane na CaveBlocku " + ChatColor.AQUA + cb1);
-                                Bukkit.getLogger().info("●Coiny wydane na MegaDropie " + ChatColor.AQUA + md);
-                            }
-                        } catch (SQLException var19) {
-                            var19.printStackTrace();
-                        }
-                    } else if (args.length <= 1) {
-                        Bukkit.getLogger().info("Podaj nazwe gracza, którego chcesz sprawdzić");
-                        if (sender instanceof Player) {
-                            sender.sendMessage("Podaj nazwe gracza, którego chcesz sprawdzić");
-                        }
-                    } else if (sender instanceof Player) {
-                        sender.sendMessage("Nie ma takiego gracza w bazie danych");
-                    } else {
-                        Bukkit.getLogger().info("Nie ma takiego gracza w bazie danych");
-                    }
-                } else if (sender instanceof Player) {
-                    p = (Player)sender;
-                    playerName = p.getName();
-                    coinsSum = 0;
-                    coinsValue = 0;
-                    ob3 = 0;
-                    ob2 = 0;
-                    cb1 = 0;
-                    md = 0;
-
-                    try {
-                        stat = SMCoin.connection.prepareStatement("SELECT Coins, CoinsSum, ob3, ob2, md, cb1 FROM coins WHERE Name = ?");
-                        stat.setString(1, playerName);
-
-                        for(ResultSet result = stat.executeQuery(); result.next(); coinsSum = result.getInt("CoinsSum")) {
-                            coinsValue = result.getInt("Coins");
-                            ob3 = result.getInt("ob3");
-                            ob2  = result.getInt("ob2");
-                            md = result.getInt("md");
-                            cb1 = result.getInt("cb1");
-                        }
-
-                        p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "SMCoins");
-                        p.sendMessage("●Posiadasz " + ChatColor.AQUA + coinsValue + ChatColor.WHITE + " SMCoinsów●");
-                        p.sendMessage("●Razem zakupiłeś już " + ChatColor.AQUA + coinsSum + ChatColor.WHITE + " SMCoinsów●");
-                        p.sendMessage("●Coiny wydane na OneBlock S2 " + ChatColor.AQUA + ob2);
-                        p.sendMessage("●Coiny wydane na OneBlock S3 " + ChatColor.AQUA + ob3);
-                        p.sendMessage("●Coiny wydane na CaveBlocku " + ChatColor.AQUA + cb1);
-                        p.sendMessage("●Coiny wydane na MegaDropie " + ChatColor.AQUA + md);
-
-                    } catch (SQLException var20) {
-                        var20.printStackTrace();
-                    }
+                    getPlayerStatistics(args[1],sender ,serverWithCoins);
+                }
+                //smc info
+                else if (sender instanceof Player) {
+                    getPlayerStatistics("-1",sender ,serverWithCoins);
                 }
             }
         }
-
         return true;
+    }
+    public void getPlayerStatistics(String player,CommandSender sender, ArrayList<Integer> serverWithCoins){
+        if (Objects.equals(player, "-1")){
+            player = sender.getName();
+        }
+
+        if (this.isInDatabase(player)) {
+            int coinsValue = 0;
+            int coinsSum = 0;
+
+            try {
+                PreparedStatement stat = SMCoin.connection.prepareStatement("SELECT * FROM coins WHERE Name = ?");
+                stat.setString(1, player);
+
+                for(ResultSet result = stat.executeQuery(); result.next(); coinsSum = result.getInt("CoinsSum")) {
+                    coinsValue = result.getInt("Coins");
+                    ResultSetMetaData resultMeta = result.getMetaData();
+                    for (int i=5; i<=resultMeta.getColumnCount(); i++){
+                        int value = result.getInt(i);
+                        serverWithCoins.add(value);
+                    }
+                }
+
+                sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "SMCoins");
+                sender.sendMessage("●" + player + " posiada " + ChatColor.AQUA + coinsValue + ChatColor.WHITE + " SMCoinsów●");
+                sender.sendMessage("●Razem zakupił już " + ChatColor.AQUA + coinsSum + ChatColor.WHITE +" SMCoinsów●");
+                sender.sendMessage("●Coiny wydane na OneBlock S2 "+ ChatColor.AQUA + serverWithCoins.get(0));
+                sender.sendMessage("●Coiny wydane na OneBlock S3 " + ChatColor.AQUA + serverWithCoins.get(1));
+                sender.sendMessage("●Coiny wydane na CaveBlocku " + ChatColor.AQUA + serverWithCoins.get(2));
+                sender.sendMessage("●Coiny wydane na MegaDropie " + ChatColor.AQUA + serverWithCoins.get(3));
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            sender.sendMessage("Nie ma takiego gracza w bazie danych");
+        }
     }
 
     public static boolean check(Player player, ItemStack coin, int coins) {
@@ -240,44 +187,18 @@ public class AddCoinsCMD implements CommandExecutor {
                     stat.setString(2, player.getName());
                     stat.executeUpdate();
                     coin.setAmount(coins);
-                    player.getInventory().addItem(new ItemStack[]{coin});
-                    if(Objects.equals(config.getString("server"), "ob3"))
-                    {
-                        PreparedStatement status = SMCoin.connection.prepareStatement("UPDATE coins SET ob3=ob3+? WHERE Name = ?");
+                    player.getInventory().addItem(coin);
+                    String server = config.getString("server");
 
-                        status.setInt(1, coins);
-                        status.setString(2, player.getName());
-                        status.executeUpdate();
-                    }
-                    if(Objects.equals(config.getString("server"), "ob2"))
-                    {
-                        PreparedStatement status = SMCoin.connection.prepareStatement("UPDATE coins SET ob2=ob2+? WHERE Name = ?");
-
-                        status.setInt(1, coins);
-                        status.setString(2, player.getName());
-                        status.executeUpdate();
-                    }
-                    if(Objects.equals(config.getString("server"), "md"))
-                    {
-                        PreparedStatement status = SMCoin.connection.prepareStatement("UPDATE coins SET md=md+? WHERE Name = ?");
-
-                        status.setInt(1, coins);
-                        status.setString(2, player.getName());
-                        status.executeUpdate();
-                    }
-                    if(Objects.equals(config.getString("server"), "cb1"))
-                    {
-                        PreparedStatement status = SMCoin.connection.prepareStatement("UPDATE coins SET cb1=cb1+? WHERE Name = ?");
-
-                        status.setInt(1, coins);
-                        status.setString(2, player.getName());
-                        status.executeUpdate();
-                    }
+                    PreparedStatement status = SMCoin.connection.prepareStatement("UPDATE coins SET `"+server+"`=`"+server+"`+? WHERE Name = ?");
+                    status.setInt(1, coins);
+                    status.setString(2, player.getName());
+                    status.executeUpdate();
                     player.sendMessage("Wypłaciłeś " + coins + " SMCoinsów!");
                     return true;
                 }
-            } catch (SQLException var4) {
-                var4.printStackTrace();
+            } catch (SQLException | NumberFormatException | CommandException e) {
+                e.printStackTrace();
                 return false;
             }
         } else {
@@ -286,7 +207,24 @@ public class AddCoinsCMD implements CommandExecutor {
         }
     }
 
-    boolean IsInDb(String p) {
+    //Tworzenie coina
+    public ItemStack createCoin(){
+        ItemStack coin = new ItemStack((Material)Objects.requireNonNull(Material.getMaterial((String)Objects.requireNonNull(SMCoin.getConfigIstance().getString("SMC_material")))));
+        ItemMeta meta = coin.getItemMeta();
+        config = plugin.getConfig();
+        List<String> lore = new ArrayList();
+        lore.add(ChatColor.GRAY + "Oficjalna waluta " + ChatColor.YELLOW + "SM");
+        lore.add(ChatColor.GRAY + "Ten" + ChatColor.GOLD + " Coin " + ChatColor.GRAY + "jest wart " + ChatColor.RED + "1zł");
+        meta.setLore(lore);
+        meta.setDisplayName(ChatColor.YELLOW + "" + ChatColor.BOLD + "SM" + ChatColor.GOLD + "Coin");
+        coin.addUnsafeEnchantment(Enchantment.LUCK, 1);
+        coin.setItemMeta(meta);
+
+        return coin;
+    }
+
+    //Sprawdza czy gracz istnieje w bazie danych
+    boolean isInDatabase(String p) {
         int query_result = 0;
 
         try {
@@ -297,19 +235,20 @@ public class AddCoinsCMD implements CommandExecutor {
             }
 
             return query_result >= 1;
-        } catch (SQLException var5) {
-            var5.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
             return true;
         }
     }
 
+    //Aktualizuje informacje o SMCoinach w bazie danych
     void UpdateGlobalStats(int coinsAmount) {
         try {
             PreparedStatement stat = SMCoin.connection.prepareStatement("UPDATE info SET Coins=Coins+?");
             stat.setInt(1, coinsAmount);
             stat.executeUpdate();
-        } catch (SQLException var3) {
-            var3.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
