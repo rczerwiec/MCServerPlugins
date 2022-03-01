@@ -1,6 +1,7 @@
 package com.stylowamc.obc.drop;
 
 import com.stylowamc.obc.items.DarkPiece;
+import com.stylowamc.obc.items.EndFlower;
 import com.stylowamc.obc.items.LightPiece;
 import com.stylowamc.obc.items.StarBook;
 import org.bukkit.Bukkit;
@@ -11,15 +12,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MobDrops implements Listener {
     @EventHandler
     public void SetMobDrop(EntityDeathEvent e){
         //Drop z każdego MOBA
+
+        Bukkit.broadcastMessage(Objects.requireNonNull(e.getEntity().getCustomName()));
+        if(Objects.equals(e.getEntity().getCustomName(), "§c§lSzkielet-zarodnik")){//Drop przedmiot
+            Random r = new Random();
+            float chance = r.nextFloat();
+            if (chance <= 0.1f){ //1% szansy na drop ciemnego odłamku
+                e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), EndFlower.create());
+            }
+        }
+
         if(e.getEntity() instanceof Monster && !(e.getEntity() instanceof Enderman)){
             Random r = new Random();
             float chance = r.nextFloat();

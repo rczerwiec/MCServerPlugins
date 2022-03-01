@@ -1,8 +1,11 @@
 package com.stylowamc.obc;
 
+import com.stylowamc.obc.commands.Command_end;
 import com.stylowamc.obc.commands.Command_obc;
 import com.stylowamc.obc.drop.MobDrops;
 import com.stylowamc.obc.drop.VillagerBlock;
+import com.stylowamc.obc.events.useEndPassHandler;
+import com.stylowamc.obc.items.EndPass;
 import com.stylowamc.obc.items.MendingBook;
 import com.stylowamc.obc.items.NetherStar;
 import com.stylowamc.obc.items.SkeletonSkull;
@@ -22,11 +25,14 @@ public final class OBC extends JavaPlugin {
         plugin = this;
 
         this.getCommand("obc").setExecutor(new Command_obc());
+        this.getCommand("przepustka").setExecutor(new Command_end());
         getServer().getPluginManager().registerEvents(new MobDrops(),this);
         getServer().getPluginManager().registerEvents(new VillagerBlock(), this);
+        getServer().getPluginManager().registerEvents(new useEndPassHandler(), this);
         SkeletonSkull.register();
         NetherStar.register();
         MendingBook.register();
+        EndPass.register();
 
     }
 
@@ -36,5 +42,6 @@ public final class OBC extends JavaPlugin {
         SkeletonSkull.unregister();
         NetherStar.unregister();
         MendingBook.unregister();
+        EndPass.unregister();
     }
 }
