@@ -1,8 +1,6 @@
 package com.stylowamc.obc.commands;
 
-import com.stylowamc.obc.items.DarkPiece;
-import com.stylowamc.obc.items.LightPiece;
-import com.stylowamc.obc.items.StarBook;
+import com.stylowamc.obc.items.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,6 +26,12 @@ public class Command_obc implements CommandExecutor {
                     }
                     else if (args[0].equalsIgnoreCase("2")){
                         p.getInventory().addItem(LightPiece.create());
+                    }
+                    else if (args[0].equalsIgnoreCase("3")){
+                        p.getInventory().addItem(EndFlower.create());
+                    }
+                    else if (args[0].equalsIgnoreCase("2")){
+                        p.getInventory().addItem(EndPass.create());
                     }
                 }
             }
