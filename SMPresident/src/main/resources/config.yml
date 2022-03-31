@@ -1,0 +1,46 @@
+#<nick kandydata>
+#  glosy:<oddane glosy na kandydata>
+#  kto: <osoby ktore glosowaly na kandydata>
+
+kandydaci:
+  0:
+    name: Test,
+    glosy: 0,
+    kto: []
+  1:
+    name: Cesarz,
+    glosy: 0,
+    kto: [ ]
+  2:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  3:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  4:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  5:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  6:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  7:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  8:
+    name: Tomek,
+    glosy: 0,
+    kto: [ ]
+  9:
+    name: Czarek,
+    glosy: 0,
+    kto: [ ]
+

@@ -11,20 +11,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class DisableCraftings implements Listener {
 
     @EventHandler
     public void craftItem(PrepareItemCraftEvent e) {
-        Material itemType = e.getRecipe().getResult().getType();
-        ItemStack item = e.getRecipe().getResult();
-        //Byte itemData = e.getRecipe().getResult().getData().getData();
-        if(itemType==Material.BEACON && !item.getItemMeta().getDisplayName().equals(Beacon.create().getItemMeta().getDisplayName())) {
-            e.getInventory().setResult(new ItemStack(Material.AIR));
-            for(HumanEntity he:e.getViewers()) {
-                if(he instanceof Player) {
-                    ((Player)he).sendMessage(ChatColor.RED+"Ten crafting jest wyłączony!");
+        try{
+            Material itemType = Objects.requireNonNull(e.getRecipe()).getResult().getType();
+            ItemStack item = e.getRecipe().getResult();
+            if(itemType==Material.BEACON && !Objects.requireNonNull(item.getItemMeta()).getDisplayName().equals(Beacon.create().getItemMeta().getDisplayName())) {
+                e.getInventory().setResult(new ItemStack(Material.AIR));
+                for(HumanEntity he:e.getViewers()) {
+                    if(he instanceof Player) {
+                        ((Player)he).sendMessage(ChatColor.RED+"Ten crafting jest wyłączony!");
+                    }
                 }
             }
+        }
+        catch (NullPointerException a){
+            //printf(a)
         }
     }
 }

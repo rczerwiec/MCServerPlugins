@@ -1,0 +1,7 @@
+name: Smpresident
+version: '${project.version}'
+main: com.stylowamc.smpresident.Smpresident
+api-version: 1.18
+commands:
+  wybory:
+    description: Otwiera menu wyboru prezydenta

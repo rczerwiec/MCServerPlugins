@@ -17,13 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class MobDrops implements Listener {
-    @EventHandler
-    public void GetPlayerMove(PlayerMoveEvent e){
-        if (e.getPlayer().getName().equals("Adriin")){
-            e.getPlayer().setGameMode(GameMode.SPECTATOR);
-            e.getPlayer().sendMessage("Musisz powiedzieć o sposobie na Mendingi!");
-        }
-    }
+
 
     @EventHandler
     public void SetMobDrop(EntityDeathEvent e){
@@ -34,7 +28,7 @@ public class MobDrops implements Listener {
             Random r = new Random();
             float chance = r.nextFloat();
             if (chance <= 0.1f){ //1% szansy na drop ciemnego odłamku
-                e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), EndFlower.create());
+                //e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), EndFlower.create());
             }
         }
 

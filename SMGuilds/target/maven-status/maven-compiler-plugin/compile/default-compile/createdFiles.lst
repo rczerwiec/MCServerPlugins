@@ -1,4 +1,3 @@
-smgang\smgang\Guild.class
-smgang\smgang\commands\CreateGuild.class
+smgang\smgang\SMGang$1.class
+smgang\smgang\events\OnServerJoin.class
 smgang\smgang\SMGang.class
-smgang\smgang\GuildManager.class
