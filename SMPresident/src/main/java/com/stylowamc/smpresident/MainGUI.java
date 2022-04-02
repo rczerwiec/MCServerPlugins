@@ -15,7 +15,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainGUI implements Listener {
     private static Inventory inv;
@@ -60,17 +62,19 @@ public class MainGUI implements Listener {
             inv.setItem(i,createGuiItem(Material.LIGHT_BLUE_STAINED_GLASS_PANE,"-"));
         }
         for(int i=11; i<=15; i++){
-            inv.setItem(i,getPlayerHead(plugin.getConfig().getString("kandydaci."+(i-11)+".name")));
+            inv.setItem(i,getPlayerHead(plugin.getConfig().getString("kandydaci."+(i-11)+".name"),i-11));
         }
         for(int i=20; i<=24; i++){
-            inv.setItem(i,getPlayerHead(plugin.getConfig().getString("kandydaci."+(i-15)+".name")));
+            inv.setItem(i,getPlayerHead(plugin.getConfig().getString("kandydaci."+(i-15)+".name"),i-15));
         }
     }
 
-    protected ItemStack getPlayerHead(String playerName){
+    protected ItemStack getPlayerHead(String playerName,int i){
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1 , (short) 3);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         meta.setDisplayName(playerName);
+        List<String> lore = plugin.getConfig().getStringList("kandydaci."+(i)+".lore");
+        meta.setLore(lore);
         meta.setOwner(playerName);
         item.setItemMeta(meta);
 
@@ -83,7 +87,7 @@ public class MainGUI implements Listener {
         final ItemMeta meta = item.getItemMeta();
 
         // Set the name of the item
-        meta.setDisplayName(name);
+        meta.setDisplayName("§6§l"+name);
         meta.addEnchant(Enchantment.CHANNELING,1,true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
@@ -104,7 +108,7 @@ public class MainGUI implements Listener {
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent e) {
         if (!e.getInventory().equals(inv)) return;
-        Bukkit.broadcastMessage("click");
+        //Bukkit.broadcastMessage("click");
         e.setCancelled(true);
 
         final ItemStack clickedItem = e.getCurrentItem();
@@ -114,7 +118,28 @@ public class MainGUI implements Listener {
 
         final Player p = (Player) e.getWhoClicked();
 
-        // Using slots click is a best option for your inventory click's
+        if((e.getRawSlot() >= 11 && e.getRawSlot() <=15) || (e.getRawSlot() >= 20 && e.getRawSlot() <= 24)){
+            List<String> list = plugin.getConfig().getStringList("glosowali");
+            if(list.contains(p.getName())) {
+                p.sendMessage("§4§lJuż głosowałeś!"); return;
+            }
+            else{
+                list.add(p.getName());
+                plugin.getConfig().set("glosowali",list);
+                int slot = e.getRawSlot();
+                if(slot>=20) slot = slot-15;
+                else slot = slot-11;
+                int g = plugin.getConfig().getInt("kandydaci."+(slot)+".glosy");
+                plugin.getConfig().set("kandydaci."+(slot)+".glosy",g+1);
+                List<String> whoVoted = plugin.getConfig().getStringList("kandydaci."+(slot)+".kto");
+                whoVoted.add(p.getName());
+                plugin.getConfig().set("kandydaci."+(slot)+".kto", whoVoted);
+                plugin.getConfig().options().copyDefaults(true);
+                plugin.saveConfig();
+                p.sendMessage("§6§lPomyślnie zagłosowałeś!");
+            }
+
+        }
         //p.sendMessage("You clicked at slot " + e.getRawSlot());
     }
 

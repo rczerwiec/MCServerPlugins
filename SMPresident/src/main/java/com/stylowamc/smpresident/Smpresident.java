@@ -3,6 +3,8 @@ package com.stylowamc.smpresident;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class Smpresident extends JavaPlugin {
 
     private static FileConfiguration config;
@@ -26,5 +28,9 @@ public final class Smpresident extends JavaPlugin {
 
     public static Smpresident getInstance(){
         return plugin;
+    }
+
+    public static FileConfiguration getConfigFile(){
+        return config;
     }
 }
