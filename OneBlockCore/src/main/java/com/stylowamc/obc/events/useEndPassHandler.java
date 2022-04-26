@@ -16,7 +16,7 @@ public class useEndPassHandler implements Listener {
             Player p = e.getPlayer();
             p.sendMessage("§a§lZostałeś przeteleportowany do endu!");
             p.getInventory().removeItem(p.getInventory().getItemInMainHand());
-            Location loc = new Location(Bukkit.getWorld("new_end"),0,65,0);
+            Location loc = new Location(Bukkit.getWorld("new_end"),126,58,15);
             p.teleport(loc);
         }
     }

@@ -1,9 +1,6 @@
 package com.stylowamc.obc.drop;
 
-import com.stylowamc.obc.items.DarkPiece;
-import com.stylowamc.obc.items.EndFlower;
-import com.stylowamc.obc.items.LightPiece;
-import com.stylowamc.obc.items.StarBook;
+import com.stylowamc.obc.items.*;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -24,12 +21,27 @@ public class MobDrops implements Listener {
         //Drop z każdego MOBA
 
         //Bukkit.broadcastMessage(Objects.requireNonNull(e.getEntity().getCustomName()));
-        if(Objects.equals(e.getEntity().getCustomName(), "§c§lSzkielet-zarodnik")){//Drop przedmiot
+        if(
+                (Objects.equals(e.getEntity().getCustomName(), "§5§lStrażnik Kresu")) ||
+                        (Objects.equals(e.getEntity().getCustomName(), "§d§lDemoniczny Zwiadowca")) ||
+                        (Objects.equals(e.getEntity().getCustomName(), "§5§lŁucznik Strachu")) ||
+                        (Objects.equals(e.getEntity().getCustomName(), "§d§lSzczur Kresu")) ||
+                        (Objects.equals(e.getEntity().getCustomName(), "§5§lMroczny Duch")) ||
+                        (Objects.equals(e.getEntity().getCustomName(), "§c§lSzkielet Mag")) ||
+                        (Objects.equals(e.getEntity().getCustomName(), "§5§lMroczny Sługa"))
+
+
+        ){//Drop przedmiot
             Random r = new Random();
             float chance = r.nextFloat();
-            if (chance <= 0.1f){ //1% szansy na drop ciemnego odłamku
-                //e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), EndFlower.create());
+            if (chance <= 0.025f){ //1% szansy na drop ciemnego odłamku
+                e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), EndFlower.create());
             }
+        }
+
+        if(Objects.equals(e.getEntity().getCustomName(), "§9§lMidas")){//Drop przedmiot
+            Bukkit.broadcastMessage("§9§lMidas został zgładzony, kolejny pojawi się za 45 minut!");
+            e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), EndPass.create());
         }
 
         if(Objects.equals(e.getEntity().getCustomName(), "§4§lTYTAN OGNIA")){//Drop przedmiot

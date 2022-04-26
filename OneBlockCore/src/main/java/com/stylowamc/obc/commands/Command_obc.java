@@ -30,7 +30,7 @@ public class Command_obc implements CommandExecutor {
                     else if (args[0].equalsIgnoreCase("3")){
                         p.getInventory().addItem(EndFlower.create());
                     }
-                    else if (args[0].equalsIgnoreCase("2")){
+                    else if (args[0].equalsIgnoreCase("4")){
                         p.getInventory().addItem(EndPass.create());
                     }
                 }
