@@ -1,0 +1,10 @@
+name: ChaosSMP
+version: '${project.version}'
+main: chaossmp.chaossmp.ChaosSMP
+api-version: 1.18
+description: xd
+commands:
+  ocal:
+    description: Pozwala ożywić gracza!
+  setHealth:
+    description: Pozwala dodać życie
